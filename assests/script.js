@@ -1,4 +1,5 @@
 // Assignment code here
+var charPool = [];
 
 var getLength = function () {
   var length = window.prompt("How many characters would you like your password to contain? Please choose a number between 8 and 128.");
@@ -32,110 +33,81 @@ var getUserInput = function () {
 
 // Get Random Characters
 var getRandoLower = function (qty) {
-  var result = [];
   var lowerCaseChar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   for (var i = 0; i < qty; i++) {
     const randoLower = lowerCaseChar[Math.floor(Math.random() * lowerCaseChar.length)];
-    result.push(randoLower);
+    charPool.push(randoLower);
   }
-  return result;
 }
 
 var getRandoUpper = function (qty) {
-  var result = [];
   var upperCaseChar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
   for (var i = 0; i < qty; i++) {
     const randoUpper = upperCaseChar[Math.floor(Math.random() * upperCaseChar.length)];
-    result.push(randoUpper);
+    charPool.push(randoUpper);
   }
-  return result;
 }
 
 var getRandoNum = function (qty) {
-  var result = [];
   var Nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,];
   for (var i = 0; i < qty; i++) {
     const randoNum = Nums[Math.floor(Math.random() * Nums.length)];
-    result.push(randoNum);
+    charPool.push(randoNum);
   }
-  return result;
 }
 
 var getRandoSpecial = function (qty) {
-  var result = [];
   var specialChar = ["!", "”", "#", "$", "%", "&", "’", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}"];
   for (var i = 0; i < qty; i++) {
     const randoSpecial = specialChar[Math.floor(Math.random() * specialChar.length)];
-    result.push(randoSpecial);
+    charPool.push(randoSpecial);
   }
-  return result;
 }
 
 var generatePassword = function () {
+  charPool = [];
   var password = "";
-  var charPool = [];
   var choosenCharTypes = [];
   var savedData = {
-    length: sessionStorage.getItem("length"),
     isLower: sessionStorage.getItem("lowercase"),
     isUpper: sessionStorage.getItem("uppercase"),
     isNum: sessionStorage.getItem("numeric"),
-    isSpecial: sessionStorage.getItem("special")
+    isSpecial: sessionStorage.getItem("special"),
+    userLength: sessionStorage.getItem("length")
   };
 
 
   getUserInput();
 
-
-
-  for (const [key, value] of Object.entries(savedData)) {
-    if (key === isLower || key === isUpper || key === isNum || key === isSpecial && value === "true") {
-
+  var x = parseInt(savedData.userLength);
+  while (charPool.length < x) {
+    //debugger;
+    while (savedData.isLower === "true") {
+      getRandoLower(1);
+      break;
+    }
+    while (savedData.isUpper === "true") {
+      getRandoUpper(1);
+      break;
+    }
+    while (savedData.isNum === "true") {
+      getRandoNum(1);
+      break;
+    }
+    while (savedData.isSpecial === "true") {
+      getRandoSpecial(1);
+      break;
     }
   }
 
 
-  var quotient = Math.floor(savedData.length / choosenCharTypes.length);
-  var remainder = savedData.length % choosenCharTypes.length;
 
-  // Check if there will be a remainder or not
-  var isRemainder = false;
-  if (remainder > 0) {
-    isRemainder = true;
-  };
 
-  var input1 = 0;
-  var input2 = 0;
-  var input3 = 0;
-  var input4 = 0;
+  console.log(charPool)
 
-  switch (choosenCharTypes.length) {
-    case 1:
-      input1 = savedData.length;
-      break;
-    case 2:
-      input1 = quotient;
-      input2 = quotient + remainder;
-      break;
-    case 3:
-      input1 = quotient;
-      input2 = quotient;
-      input3 = quotient + remainder;
-      break;
-    case 4:
-      if (isRemainder) {
-        input1 = quotient;
-        input2 = quotient;
-        input3 = quotient;
-        input4 = quotient + remainder;
-      }
-      else {
-        input1 = quotient;
-        input2 = quotient;
-        input3 = quotient;
-        input4 = quotient;
-      }
-  }
+
+
+
 
 
 
