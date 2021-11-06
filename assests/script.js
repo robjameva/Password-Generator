@@ -1,18 +1,19 @@
 // Assignment code here
 
 var getLength = function () {
-  //debugger;
   var length = window.prompt("How many characters would you like your password to contain? Please choose a number between 8 and 128.");
   length = parseInt(length);
-  if (length < 8 || length > 128) {
-    window.alert("Your password can only be between 8 and 128 characters, please submit again");
-    getLength();
-  }
   return length;
 }
 
+
 var getUserInput = function () {
   var pwLength = getLength();
+  if (pwLength < 8 || pwLength > 128) {
+    window.alert("Your password can only be between 8 and 128 characters, please submit again");
+    pwLength = getLength();
+  }
+
   var isLowercase = window.confirm("Would you like your password to include: LowerCase characters?");
   var isUppercase = window.confirm("Would you like your password to include: Uppercase characters?");
   var isNumeric = window.confirm("Would you like your password to include: Numeric characters?");
@@ -21,47 +22,75 @@ var getUserInput = function () {
     window.alert("You need to pick at least one condition, please try again.");
     getUserInput();
   }
-
+  sessionStorage.setItem("length", pwLength);
+  sessionStorage.setItem("lowercase", isLowercase);
+  sessionStorage.setItem("uppercase", isUppercase);
+  sessionStorage.setItem("numeric", isNumeric);
+  sessionStorage.setItem("special", isSpecial);
 }
 
 
 // Get Random Characters
-var getRandoLower = function () {
+var getRandoLower = function (qty) {
+  var result = [];
   var lowerCaseChar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-  const randoLower = lowerCaseChar[Math.floor(Math.random() * lowerCaseChar.length)];
-  return randoLower;
+  for (var i = 0; i < qty; i++) {
+    const randoLower = lowerCaseChar[Math.floor(Math.random() * lowerCaseChar.length)];
+    result.push(randoLower);
+  }
+  return result;
 }
 
-var getRandoUpper = function () {
+var getRandoUpper = function (qty) {
+  var result = [];
   var upperCaseChar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-  const randoUpper = upperCaseChar[Math.floor(Math.random() * upperCaseChar.length)];
-  return randoUpper;
+  for (var i = 0; i < qty; i++) {
+    const randoUpper = upperCaseChar[Math.floor(Math.random() * upperCaseChar.length)];
+    result.push(randoUpper);
+  }
+  return result;
 }
 
-var getRandoNum = function () {
-  const randonum = Math.floor(Math.random() * 10);
-  return randonum;
+var getRandoNum = function (qty) {
+  var result = [];
+  var Nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,];
+  for (var i = 0; i < qty; i++) {
+    const randoNum = Nums[Math.floor(Math.random() * Nums.length)];
+    result.push(randoNum);
+  }
+  return result;
 }
 
-var getRandoSpecial = function () {
+var getRandoSpecial = function (qty) {
+  var result = [];
   var specialChar = ["!", "”", "#", "$", "%", "&", "’", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}"];
-  const randoSpecial = specialChar[Math.floor(Math.random() * specialChar.length)];
-  return randoSpecial;
+  for (var i = 0; i < qty; i++) {
+    const randoSpecial = specialChar[Math.floor(Math.random() * specialChar.length)];
+    result.push(randoSpecial);
+  }
+  return result;
 }
+
 
 
 
 var generatePassword = function () {
+  var password = "";
   getUserInput();
 
+  var savedLength = sessionStorage.getItem("length");
+  var savedIsLower = sessionStorage.getItem("lowercase");
+  var savedIsUpper = sessionStorage.getItem("uppercase");
+  var savedIsNum = sessionStorage.getItem("numeric");
+  var savedIsSpecial = sessionStorage.getItem("special");
 
-  // for (i = 0; i < pwLength; i++) {
-  //   var password = "";
 
-  //   password.concat();
+  for (i = 0; i < savedLength; i++) {
+
+    password.concat();
+  }
+  return password;
 }
-
-
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
