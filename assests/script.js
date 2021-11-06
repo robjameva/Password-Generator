@@ -71,24 +71,77 @@ var getRandoSpecial = function (qty) {
   return result;
 }
 
-
-
-
 var generatePassword = function () {
   var password = "";
+  var charPool = [];
+  var choosenCharTypes = [];
+  var savedData = {
+    length: sessionStorage.getItem("length"),
+    isLower: sessionStorage.getItem("lowercase"),
+    isUpper: sessionStorage.getItem("uppercase"),
+    isNum: sessionStorage.getItem("numeric"),
+    isSpecial: sessionStorage.getItem("special")
+  };
+
+
   getUserInput();
 
-  var savedLength = sessionStorage.getItem("length");
-  var savedIsLower = sessionStorage.getItem("lowercase");
-  var savedIsUpper = sessionStorage.getItem("uppercase");
-  var savedIsNum = sessionStorage.getItem("numeric");
-  var savedIsSpecial = sessionStorage.getItem("special");
 
 
-  for (i = 0; i < savedLength; i++) {
+  for (const [key, value] of Object.entries(savedData)) {
+    if (key === isLower || key === isUpper || key === isNum || key === isSpecial && value === "true") {
 
-    password.concat();
+    }
   }
+
+
+  var quotient = Math.floor(savedData.length / choosenCharTypes.length);
+  var remainder = savedData.length % choosenCharTypes.length;
+
+  // Check if there will be a remainder or not
+  var isRemainder = false;
+  if (remainder > 0) {
+    isRemainder = true;
+  };
+
+  var input1 = 0;
+  var input2 = 0;
+  var input3 = 0;
+  var input4 = 0;
+
+  switch (choosenCharTypes.length) {
+    case 1:
+      input1 = savedData.length;
+      break;
+    case 2:
+      input1 = quotient;
+      input2 = quotient + remainder;
+      break;
+    case 3:
+      input1 = quotient;
+      input2 = quotient;
+      input3 = quotient + remainder;
+      break;
+    case 4:
+      if (isRemainder) {
+        input1 = quotient;
+        input2 = quotient;
+        input3 = quotient;
+        input4 = quotient + remainder;
+      }
+      else {
+        input1 = quotient;
+        input2 = quotient;
+        input3 = quotient;
+        input4 = quotient;
+      }
+  }
+
+
+
+
+  password.concat();
+
   return password;
 }
 
