@@ -1,4 +1,5 @@
 // Assignment code here
+
 var getLength = function () {
   //debugger;
   var length = window.prompt("How many characters would you like your password to contain? Please choose a number between 8 and 128.");
@@ -9,6 +10,20 @@ var getLength = function () {
   }
   return length;
 }
+
+var getUserInput = function () {
+  var pwLength = getLength();
+  var isLowercase = window.confirm("Would you like your password to include: LowerCase characters?");
+  var isUppercase = window.confirm("Would you like your password to include: Uppercase characters?");
+  var isNumeric = window.confirm("Would you like your password to include: Numeric characters?");
+  var isSpecial = window.confirm("Would you like your password to include: Special characters?");
+  if (isLowercase === false && isUppercase === false && isNumeric === false && isSpecial === false) {
+    window.alert("You need to pick at least one condition, please try again.");
+    getUserInput();
+  }
+
+}
+
 
 // Get Random Characters
 var getRandoLower = function () {
@@ -37,23 +52,16 @@ var getRandoSpecial = function () {
 
 
 var generatePassword = function () {
-  var pwLength = getLength();
-  var isLowercase = window.confirm("Would you like your password to include: LowerCase characters?");
-  var isUppercase = window.confirm("Would you like your password to include: Uppercase characters?");
-  var isNumeric = window.confirm("Would you like your password to include: Numeric characters?");
-  var isSpecial = window.confirm("Would you like your password to include: Special characters?");
+  getUserInput();
 
 
+  // for (i = 0; i < pwLength; i++) {
+  //   var password = "";
 
-  for (i = 0; i < pwLength; i++) {
-    var password = "";
-
-    password.concat();
-  }
-
-
-  console.log(pwLength, isLowercase, isUppercase, isNumeric, isSpecial);
+  //   password.concat();
 }
+
+
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
