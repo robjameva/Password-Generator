@@ -1,42 +1,39 @@
 // Assignment code here
 var charPool = [];
+var userData = {
+  pwLength: 0,
+  isLowercase: null,
+  isUppercase: null,
+  isNumeric: null,
+  isSpecial: null
+};
 
 var getLength = function () {
   var length = window.prompt("How many characters would you like your password to contain? Please choose a number between 8 and 128.");
   length = parseInt(length);
-  return length;
+  userData.pwLength = length;
 }
 
 
 var getUserInput = function () {
-  var pwLength = getLength();
-  if (pwLength < 8 || pwLength > 128) {
+  getLength();
+  if (userData.pwLength < 8 || userData.pwLength > 128) {
     window.alert("Your password can only be between 8 and 128 characters, please submit again");
-    pwLength = getLength();
+    getLength();
   }
 
-  var isLowercase = window.confirm("Would you like your password to include: LowerCase characters?");
-  var isUppercase = window.confirm("Would you like your password to include: Uppercase characters?");
-  var isNumeric = window.confirm("Would you like your password to include: Numeric characters?");
-  var isSpecial = window.confirm("Would you like your password to include: Special characters?");
-  if (isLowercase === false && isUppercase === false && isNumeric === false && isSpecial === false) {
+  userData.isLowercase = window.confirm("Would you like your password to include: LowerCase characters?");
+  userData.isUppercase = window.confirm("Would you like your password to include: Uppercase characters?");
+  userData.isNumeric = window.confirm("Would you like your password to include: Numeric characters?");
+  userData.isSpecial = window.confirm("Would you like your password to include: Special characters?");
+
+  if (userData.isLowercase === false && userData.isUppercase === false && userData.isNumeric === false && userData.isSpecial === false) {
     window.alert("You need to pick at least one condition, please try again.");
     getUserInput();
   }
-  sessionStorage.setItem("password length", pwLength);
-  sessionStorage.setItem("lowercase", isLowercase);
-  sessionStorage.setItem("uppercase", isUppercase);
-  sessionStorage.setItem("numeric", isNumeric);
-  sessionStorage.setItem("special", isSpecial);
+
 }
 
-var resetSessionStorage = function () {
-  sessionStorage.removeItem("lowercase");
-  sessionStorage.removeItem("uppercase");
-  sessionStorage.removeItem("numeric");
-  sessionStorage.removeItem("special");
-  sessionStorage.removeItem("password length");
-};
 
 
 // Get Random Characters
@@ -74,38 +71,28 @@ var getRandoSpecial = function (qty) {
 
 var generatePassword = function () {
   var password = "";
-  var savedData = {
-    isLower: sessionStorage.getItem("lowercase"),
-    isUpper: sessionStorage.getItem("uppercase"),
-    isNum: sessionStorage.getItem("numeric"),
-    isSpecial: sessionStorage.getItem("special"),
-    userLength: sessionStorage.getItem("password length")
-  };
-
 
   getUserInput();
-  debugger;
 
-  var x = parseInt(savedData.userLength);
-  while (charPool.length < x) {
+
+  while (charPool.length < userData.pwLength) {
     //debugger;
-    while (savedData.isLower === "true") {
+    if (userData.isLowercase === true) {
       getRandoLower(1);
-      break;
     }
-    while (savedData.isUpper === "true") {
+    if (userData.isUppercase === true) {
       getRandoUpper(1);
-      break;
     }
-    while (savedData.isNum === "true") {
+    if (userData.isNumeric === true) {
       getRandoNum(1);
-      break;
     }
-    while (savedData.isSpecial === "true") {
+    if (userData.isSpecial === true) {
       getRandoSpecial(1);
-      break;
     }
   }
+
+
+
 
 
 
