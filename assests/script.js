@@ -84,7 +84,7 @@ var generatePassword = function () {
 
 
   getUserInput();
-  debugger;
+  //debugger;
 
   var x = parseInt(savedData.userLength);
   while (charPool.length < x) {
