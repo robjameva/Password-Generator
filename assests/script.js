@@ -23,12 +23,20 @@ var getUserInput = function () {
     window.alert("You need to pick at least one condition, please try again.");
     getUserInput();
   }
-  sessionStorage.setItem("length", pwLength);
+  sessionStorage.setItem("password length", pwLength);
   sessionStorage.setItem("lowercase", isLowercase);
   sessionStorage.setItem("uppercase", isUppercase);
   sessionStorage.setItem("numeric", isNumeric);
   sessionStorage.setItem("special", isSpecial);
 }
+
+var resetSessionStorage = function () {
+  sessionStorage.removeItem("lowercase");
+  sessionStorage.removeItem("uppercase");
+  sessionStorage.removeItem("numeric");
+  sessionStorage.removeItem("special");
+  sessionStorage.removeItem("password length");
+};
 
 
 // Get Random Characters
@@ -65,19 +73,18 @@ var getRandoSpecial = function (qty) {
 }
 
 var generatePassword = function () {
-  charPool = [];
   var password = "";
-  var choosenCharTypes = [];
   var savedData = {
     isLower: sessionStorage.getItem("lowercase"),
     isUpper: sessionStorage.getItem("uppercase"),
     isNum: sessionStorage.getItem("numeric"),
     isSpecial: sessionStorage.getItem("special"),
-    userLength: sessionStorage.getItem("length")
+    userLength: sessionStorage.getItem("password length")
   };
 
 
   getUserInput();
+  debugger;
 
   var x = parseInt(savedData.userLength);
   while (charPool.length < x) {
@@ -103,9 +110,8 @@ var generatePassword = function () {
 
 
 
-  console.log(charPool)
 
-
+  console.log(charPool);
 
 
 
@@ -116,6 +122,8 @@ var generatePassword = function () {
 
   return password;
 }
+
+//resetSessionStorage();
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
