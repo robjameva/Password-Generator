@@ -22,10 +22,10 @@ var getLength = function () {
 
 var getUserInput = function () {
   getLength();
-  userData.isLowercase = window.confirm("Would you like your password to include: Lowercase characters?");
-  userData.isUppercase = window.confirm("Would you like your password to include: Uppercase characters?");
-  userData.isNumeric = window.confirm("Would you like your password to include: Numeric characters?");
-  userData.isSpecial = window.confirm("Would you like your password to include: Special characters?");
+  userData.isLowercase = window.confirm("Click OK if you would like your password to include: Lowercase characters?");
+  userData.isUppercase = window.confirm("Click OK if you would like your password to include: Uppercase characters?");
+  userData.isNumeric = window.confirm("Click OK if you would like your password to include: Numeric characters?");
+  userData.isSpecial = window.confirm("Click OK if you would like your password to include: Special characters?");
 
   if (userData.isLowercase === false && userData.isUppercase === false && userData.isNumeric === false && userData.isSpecial === false) {
     window.alert("You need to pick at least one condition, please try again.");
