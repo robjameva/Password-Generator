@@ -1,4 +1,5 @@
 // Assignment code here
+// Global Data
 var charPool = [];
 var userData = {
   pwLength: 0,
@@ -33,19 +34,17 @@ var getUserInput = function () {
 
 }
 
-// Get Random Characters
+// Get Random Characters and push to the character pool
 var getRandoLower = function () {
   var lowerCaseChar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   var randoLower = lowerCaseChar[Math.floor(Math.random() * lowerCaseChar.length)];
   charPool.push(randoLower);
-
 }
 
 var getRandoUpper = function () {
   var upperCaseChar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
   var randoUpper = upperCaseChar[Math.floor(Math.random() * upperCaseChar.length)];
   charPool.push(randoUpper);
-
 }
 
 var getRandoNum = function () {
@@ -60,6 +59,7 @@ var getRandoSpecial = function () {
   charPool.push(randoSpecial);
 }
 
+// Generate global character pool with enough characters of each type to satisfy user request
 var getAllChar = function () {
   while (charPool.length < userData.pwLength) {
     if (userData.isLowercase === true) {
@@ -77,6 +77,7 @@ var getAllChar = function () {
   }
 }
 
+// Turn character pool array into password string to be sent to the user
 var concatPassword = function () {
   var password = [];
   while (password.length < userData.pwLength) {
@@ -91,6 +92,7 @@ var concatPassword = function () {
   return password;
 }
 
+// Main funtion, fired on button click 
 var generatePassword = function () {
   getUserInput();
   getAllChar();
