@@ -8,5 +8,5 @@ special characters.
 ## Generate Your Own Passwords
 https://robjameva.github.io/Password-Generator/
 
-![home page screenshot](assets/images/screen-shot.png?raw=true)
+![home page screenshot](assests/images/screen-shot.png?raw=true)
 
