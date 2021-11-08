@@ -21,7 +21,7 @@ var getLength = function () {
 
 var getUserInput = function () {
   getLength();
-  userData.isLowercase = window.confirm("Would you like your password to include: LowerCase characters?");
+  userData.isLowercase = window.confirm("Would you like your password to include: Lowercase characters?");
   userData.isUppercase = window.confirm("Would you like your password to include: Uppercase characters?");
   userData.isNumeric = window.confirm("Would you like your password to include: Numeric characters?");
   userData.isSpecial = window.confirm("Would you like your password to include: Special characters?");
