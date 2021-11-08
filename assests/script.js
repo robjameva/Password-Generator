@@ -69,14 +69,8 @@ var getRandoSpecial = function (qty) {
   }
 }
 
-var generatePassword = function () {
-  var password = "";
-
-  getUserInput();
-
-
+var getAllChar = function () {
   while (charPool.length < userData.pwLength) {
-    //debugger;
     if (userData.isLowercase === true) {
       getRandoLower(1);
     }
@@ -90,27 +84,26 @@ var generatePassword = function () {
       getRandoSpecial(1);
     }
   }
-
-
-
-
-
-
-
-
-  console.log(charPool);
-
-
-
-
-
-
-  password.concat();
-
-  return password;
 }
 
-//resetSessionStorage();
+
+
+var generatePassword = function () {
+  var password = "";
+
+  getUserInput();
+  getAllChar();
+  console.log(charPool);
+
+  // Reset character pool for subsequent passwords
+  charPool = [];
+
+  //password.concat();
+
+  //return password;
+}
+
+
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
