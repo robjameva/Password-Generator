@@ -12,16 +12,15 @@ var getLength = function () {
   var length = window.prompt("How many characters would you like your password to contain? Please choose a number between 8 and 128.");
   length = parseInt(length);
   userData.pwLength = length;
-}
 
-
-var getUserInput = function () {
-  getLength();
   if (userData.pwLength < 8 || userData.pwLength > 128) {
     window.alert("Your password can only be between 8 and 128 characters, please submit again");
     getLength();
   }
+}
 
+var getUserInput = function () {
+  getLength();
   userData.isLowercase = window.confirm("Would you like your password to include: LowerCase characters?");
   userData.isUppercase = window.confirm("Would you like your password to include: Uppercase characters?");
   userData.isNumeric = window.confirm("Would you like your password to include: Numeric characters?");
@@ -34,76 +33,74 @@ var getUserInput = function () {
 
 }
 
-
-
 // Get Random Characters
-var getRandoLower = function (qty) {
+var getRandoLower = function () {
   var lowerCaseChar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-  for (var i = 0; i < qty; i++) {
-    const randoLower = lowerCaseChar[Math.floor(Math.random() * lowerCaseChar.length)];
-    charPool.push(randoLower);
-  }
+  var randoLower = lowerCaseChar[Math.floor(Math.random() * lowerCaseChar.length)];
+  charPool.push(randoLower);
+
 }
 
-var getRandoUpper = function (qty) {
+var getRandoUpper = function () {
   var upperCaseChar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-  for (var i = 0; i < qty; i++) {
-    const randoUpper = upperCaseChar[Math.floor(Math.random() * upperCaseChar.length)];
-    charPool.push(randoUpper);
-  }
+  var randoUpper = upperCaseChar[Math.floor(Math.random() * upperCaseChar.length)];
+  charPool.push(randoUpper);
+
 }
 
-var getRandoNum = function (qty) {
+var getRandoNum = function () {
   var Nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,];
-  for (var i = 0; i < qty; i++) {
-    const randoNum = Nums[Math.floor(Math.random() * Nums.length)];
-    charPool.push(randoNum);
-  }
+  var randoNum = Nums[Math.floor(Math.random() * Nums.length)];
+  charPool.push(randoNum);
 }
 
-var getRandoSpecial = function (qty) {
+var getRandoSpecial = function () {
   var specialChar = ["!", "”", "#", "$", "%", "&", "’", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}"];
-  for (var i = 0; i < qty; i++) {
-    const randoSpecial = specialChar[Math.floor(Math.random() * specialChar.length)];
-    charPool.push(randoSpecial);
-  }
+  var randoSpecial = specialChar[Math.floor(Math.random() * specialChar.length)];
+  charPool.push(randoSpecial);
 }
 
 var getAllChar = function () {
   while (charPool.length < userData.pwLength) {
     if (userData.isLowercase === true) {
-      getRandoLower(1);
+      getRandoLower();
     }
     if (userData.isUppercase === true) {
-      getRandoUpper(1);
+      getRandoUpper();
     }
     if (userData.isNumeric === true) {
-      getRandoNum(1);
+      getRandoNum();
     }
     if (userData.isSpecial === true) {
-      getRandoSpecial(1);
+      getRandoSpecial();
     }
   }
 }
 
-
+var concatPassword = function () {
+  var password = [];
+  while (password.length < userData.pwLength) {
+    var character = charPool[Math.floor(Math.random() * charPool.length)];
+    var index = charPool.indexOf(character);
+    if (index > -1) {
+      var singleChar = charPool.splice(index, 1);
+      password.push(singleChar[0]);
+    }
+  }
+  password = password.join('');
+  return password;
+}
 
 var generatePassword = function () {
-  var password = "";
-
   getUserInput();
   getAllChar();
-  console.log(charPool);
+  var finalPassword = concatPassword();
 
   // Reset character pool for subsequent passwords
   charPool = [];
 
-  //password.concat();
-
-  //return password;
+  return finalPassword;
 }
-
-
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
